@@ -1,0 +1,36 @@
+- OraclePHP/
+  - app/
+    - controllers/
+    - models/
+    - views/
+  - public/
+    - css/
+    - js/
+    - index.php             [√]
+  - config/
+    - database.php
+
+  - core/
+    - Main/
+        - App.php
+    - Router/
+        - Router.php        [√]
+
+    - databases/ 
+        - mysql/
+            - mysql.php
+
+    - lib/
+      - util/
+        -util.php 
+
+      - env_loader/
+        - env_loader.php <== [√]
+        
+    - Cryptography/
+      - JWT/ 
+          - JWT.php <======= [√]
+      - Encrypt/
+          - Encrypt.php <=== [√]
+    
+  - .htaccess <============= [√]
