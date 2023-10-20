@@ -4,15 +4,27 @@ namespace Oracle\lib\Request;
 
 class Request {
     protected $url;
-    protected $method;
+    private $method;
     protected $data;
     protected $headers;
 
     public function __construct($url) {
         $this->url = $url;
-        $this->method = 'GET';
+        $this->method = 'GET'; // default
         $this->data = [];
         $this->headers = [];
+    }
+
+    public function setUrl($url) {
+        if($this->url === null){
+            $this->url = $url;
+        }
+    }
+
+    public function setMethod($method){
+        if($this->method === 'GET' || $this->method === null){
+            $this->method = strtoupper($method);
+        }
     }
 
     public function withMethod($method) {
