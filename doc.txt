@@ -17,8 +17,7 @@
         - Router.php        [√]
 
     - databases/ 
-        - mysql/
-            - mysql.php
+      - mysql.php <========= []
 
     - lib/
       - util/
@@ -26,7 +25,7 @@
 
       - env_loader/
         - env_loader.php <== [√]
-        
+
     - Cryptography/
       - JWT/ 
           - JWT.php <======= [√]
@@ -34,3 +33,4 @@
           - Encrypt.php <=== [√]
     
   - .htaccess <============= [√]
+  - .env.sample <=========== []
