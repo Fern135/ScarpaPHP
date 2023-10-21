@@ -1,6 +1,6 @@
 <?php
-include "../Router/Router.php";
-use Oracle\Router; 
+
+use \Oracle\router\Router;
 
 class App {
     protected $router;

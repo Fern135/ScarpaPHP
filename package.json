@@ -1,0 +1,10 @@
+{
+  "name": "oraclephp",
+  "version": "1.0.0",
+  "description": "a free and open source php framework.",
+  "scripts": {
+    "test": "php ./core/tests/runner.test.php"
+  },
+  "author": "Fernando Camblor",
+  "license": "MIT"
+}

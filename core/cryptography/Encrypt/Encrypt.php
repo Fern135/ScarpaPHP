@@ -4,7 +4,7 @@ namespace Oracle\Cryptography\Encrypt;
 
 include "../../lib/env_loader/env_loader.php";
 
-class SimpleEncryption {
+class Encrypt {
     private $cipher = 'aes-256-cbc';  // Cipher method
     private $key;                    // Encryption key
     private $iv;                     // Initialization vector (IV)

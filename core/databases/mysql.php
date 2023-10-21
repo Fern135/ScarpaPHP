@@ -1,8 +1,8 @@
 <?php 
 
 namespace Oracle\databases\mysql;
+use \Oracle\lib\util\Util;
 use Exception; // don't know why this was needed but it works. yay
-use Oracle\lib\util;
 
 include "../lib/env_loader/env_loader.php";
 
@@ -60,6 +60,11 @@ class mysql extends Util{
         echo "Connected successfully";
     }
 
+    public function getConnection() {
+        return $this->conn;
+    }
+    
+
     public function insert($table, array $Data){
         try{
             $questionMarks = str_repeat('?,', count($Data) - 1) . '?';
@@ -89,5 +94,13 @@ class mysql extends Util{
         }
     }
 
-    
+    public function select(){
+        try{
+
+        }catch(Exception $error){
+            echo $error;
+        }
+    }
+
+
 }
