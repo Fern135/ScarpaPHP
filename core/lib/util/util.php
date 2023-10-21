@@ -75,4 +75,34 @@ class Util{
         return $typeString;
     }
     
+    public function getOperatingSystem() {
+        $uname = php_uname('s'); // Get the OS name
+        $lowercaseUname = strtolower($uname);
+    
+        if (strpos($lowercaseUname, 'linux') !== false) {
+            return 'Linux';
+        } elseif (strpos($lowercaseUname, 'darwin') !== false) {
+            return 'macOS';
+        } elseif (strpos($lowercaseUname, 'win') !== false) {
+            return 'Windows';
+        } else {
+            return 'Unknown';
+        }
+    }
+
+    public function getCurrentDateTime() {
+        // Get current timestamp
+        $timestamp = time();
+    
+        // Format the time as "HH:MM AM/PM"
+        $time = date("h:i A", $timestamp);
+    
+        // Format the date as "DD:MM:YYYY"
+        $date = date("d:m:Y", $timestamp);
+    
+        return [
+            'time' => $time,
+            'date' => $date,
+        ];
+    }
 }
