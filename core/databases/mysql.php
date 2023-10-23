@@ -67,13 +67,12 @@ class mysql extends Util{
 
     public function insert($table, array $Data){
         try{
-            $questionMarks = str_repeat('?,', count($Data) - 1) . '?';
-            $this->stmt = mysqli_prepare($this->conn, "INSERT INTO $table VALUES ($questionMarks)");
+            $questionMarks  = str_repeat('?,', count($Data) - 1) . '?';
+            $this->stmt     = mysqli_prepare($this->conn, "INSERT INTO $table VALUES ($questionMarks)");
             
             if (!$this->stmt) {
                 die("Preparation failed: " . mysqli_error($this->conn));
             }
-            
             
             foreach($Data as $data){
                 mysqli_stmt_bind_param(
@@ -94,8 +93,47 @@ class mysql extends Util{
         }
     }
 
-    public function select(){
+    public function select($table, ...$col, ...$colData, ...$search){ // aka read
         try{
+            $qMark = str_repeat('?,', count($colData) - 1) . '?';
+            $conditionValue = [];
+            $sql = "SELECT $col FROM $table WHERE $colData = $qMark";
+
+            // Prepare the statement
+            $this->stmt = mysqli_prepare($this->conn, $sql);
+
+            // handle if preparation failed
+            if (!$this->stmt) {
+                die("Prepare failed: " . mysqli_error($this->conn));
+            }
+
+            foreach($colData as $data){
+                $conditionValue[] = $data; // Replace with your condition value
+            }
+
+            // Bind the parameter to the statement
+            mysqli_stmt_bind_param(
+                $this->stmt, 
+                $this->getParamTypeString($colData), 
+                $conditionValue
+            );
+
+            // Execute the statement
+            if (mysqli_stmt_execute($this->stmt)) {
+                mysqli_stmt_store_result($this->stmt);
+
+                // Bind result variables
+                $col = null;
+                mysqli_stmt_bind_result($this->stmt, $col);
+
+                // Fetch and process results
+                while (mysqli_stmt_fetch($this->stmt)) {
+                    return $col;
+                }
+            } else {
+                die("Execute failed: " . mysqli_stmt_error($this->stmt));
+            }
+
 
         }catch(Exception $error){
             echo $error;

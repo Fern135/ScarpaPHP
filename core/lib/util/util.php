@@ -1,6 +1,7 @@
 <?php 
 
 namespace Oracle\lib\util;
+use Exception;
 
 class Util{
 
@@ -105,4 +106,18 @@ class Util{
             'date' => $date,
         ];
     }
+
+    public function jsonify($data) {
+        // Use json_encode to convert the data to JSON
+        $json = json_encode($data);
+    
+        if ($json === false) {
+            // Handle the error if the conversion fails
+            throw new Exception('JSON encoding failed');
+        }
+    
+        // Return the JSON string
+        return $json;
+    }
+    
 }
