@@ -6,14 +6,18 @@ use Exception;
 class Util{
 
     private $characters;
+    private $pattern;
+    
 
     public function __construct(){
-        $this->characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#%^&*()_+=-1234567890[]{};"",./<>?';
+        $this->characters   = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#%^&*()_+=-1234567890[]{};"",./<>?';
+        $this->pattern      = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
     }
     
     public function __destruct(){
-        $this->characters = null;
-
+        $this->characters   = null;
+        $this->pattern      = null;
+        
     }
 
     function generateRandomString($length) {
@@ -76,7 +80,7 @@ class Util{
         return $typeString;
     }
     
-    public function getOperatingSystem() {
+    public function getOperatingSystem() { //* dev
         $uname = php_uname('s'); // Get the OS name
         $lowercaseUname = strtolower($uname);
     
@@ -118,6 +122,16 @@ class Util{
     
         // Return the JSON string
         return $json;
+    }
+
+    public function validateEmail($email) {
+    
+        // Use the preg_match function to check if the email matches the pattern
+        if (preg_match($this->pattern, $email)) {
+            return true; // Valid email
+        } else {
+            return false; // Invalid email
+        }
     }
     
 }
