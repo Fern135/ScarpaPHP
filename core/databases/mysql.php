@@ -7,11 +7,11 @@ use Exception; // don't know why this was needed but it works. yay
 include "../lib/env_loader/env_loader.php";
 
 class mysql extends Util{
+    private string $host;
+    private string $user;
+    private string $pass;
+    private string $dbname;
     private $conn;
-    private $host;
-    private $user;
-    private $pass;
-    private $dbname;
     private $stmt;
 
     public function __construct(){

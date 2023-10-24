@@ -10,11 +10,19 @@
   - config/
     - database.php
 
+  - tests/ 
+    - todo
   - core/
     - Main/
         - App.php
     - Router/
         - Router.php <====== [√]
+
+    - email/
+      - emailer.php <======= [√]
+
+    - template/
+      - templater.php <===== [√]
 
     - databases/ 
       - mysql.php <========= []
