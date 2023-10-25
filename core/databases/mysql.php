@@ -6,7 +6,7 @@ use Exception; // don't know why this was needed but it works. yay
 
 include "../lib/env_loader/env_loader.php";
 
-class mysql extends Util{
+class MySQL extends Util {
     private string $host;
     private string $user;
     private string $pass;
@@ -29,17 +29,17 @@ class mysql extends Util{
 
         try{
             $this->connect();
-        }catch(Exception $error){
+        } catch(Exception $error){
             echo $error;
         }
     }
 
     private function __destruct(){
-        $this->conn     = null;
-        $this->host     = null;
-        $this->user     = null;
-        $this->pass     = null;
-        $this->dbname   = null;
+        $this->conn = null;
+        $this->host = null;
+        $this->user = null;
+        $this->pass = null;
+        $this->dbname = null;
 
         mysqli_close($this->conn);
         mysqli_stmt_close($this->stmt);
@@ -57,88 +57,103 @@ class mysql extends Util{
         if (!$this->conn) {
           die("Connection failed: " . mysqli_connect_error());
         }
-        echo "Connected successfully";
+        echo "Connected successfully\n";
     }
 
     public function getConnection() {
         return $this->conn;
     }
-    
 
-    public function insert($table, array $Data){
-        try{
-            $questionMarks  = str_repeat('?,', count($Data) - 1) . '?';
-            $this->stmt     = mysqli_prepare($this->conn, "INSERT INTO $table VALUES ($questionMarks)");
-            
-            if (!$this->stmt) {
-                die("Preparation failed: " . mysqli_error($this->conn));
-            }
-            
-            foreach($Data as $data){
-                mysqli_stmt_bind_param(
-                    $this->stmt, 
-                    $this->getParamTypeString($data), 
-                    $data
-                );
-            }
-            
-            if (mysqli_stmt_execute($this->stmt)) {
-                echo "Record added successfully!";
-            } else {
-                echo "Error: " . mysqli_stmt_error($this->stmt);
-            }
+    public function insert($table, $data) {
+        $columns = implode(", ", array_keys($data));
+        $values = str_repeat("?, ", count($data) - 1) . "?";
+        $query = "INSERT INTO $table ($columns) VALUES ($values)";
 
-        }catch(Exception $error){
-            echo $error;
+        $stmt = $this->prepareStatement($query, array_values($data));
+
+        if ($stmt->execute()) {
+            return "Record added successfully!\n";
+        } else {
+            return "Error: " . $stmt->error;
         }
     }
 
-    public function select($table, ...$col, ...$colData, ...$search){ // aka read
-        try{
-            $qMark = str_repeat('?,', count($colData) - 1) . '?';
-            $conditionValue = [];
-            $sql = "SELECT $col FROM $table WHERE $colData = $qMark";
+    public function select($table, $columns, $whereColumn, $whereValue) {
+        $columnList = implode(", ", $columns);
+        $query = "SELECT $columnList FROM $table WHERE $whereColumn = ?";
 
-            // Prepare the statement
-            $this->stmt = mysqli_prepare($this->conn, $sql);
+        $stmt = $this->prepareStatement($query, [$whereValue]);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-            // handle if preparation failed
-            if (!$this->stmt) {
-                die("Prepare failed: " . mysqli_error($this->conn));
-            }
+        $rows = [];
+        while ($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
 
-            foreach($colData as $data){
-                $conditionValue[] = $data; // Replace with your condition value
-            }
+        $stmt->close();
+        return $rows;
+    }
 
-            // Bind the parameter to the statement
-            mysqli_stmt_bind_param(
-                $this->stmt, 
-                $this->getParamTypeString($colData), 
-                $conditionValue
-            );
+    public function update($table, $data, $whereColumn, $whereValue) {
+        $setClause = implode(" = ?, ", array_keys($data)) . " = ?";
+        $query = "UPDATE $table SET $setClause WHERE $whereColumn = ?";
 
-            // Execute the statement
-            if (mysqli_stmt_execute($this->stmt)) {
-                mysqli_stmt_store_result($this->stmt);
+        $stmt = $this->prepareStatement($query, array_merge(array_values($data), [$whereValue]));
 
-                // Bind result variables
-                $col = null;
-                mysqli_stmt_bind_result($this->stmt, $col);
+        if ($stmt->execute()) {
+            return "Updated rows: " . $stmt->affected_rows . "\n";
+        } else {
+            return "Error: " . $stmt->error;
+        }
+    }
 
-                // Fetch and process results
-                while (mysqli_stmt_fetch($this->stmt)) {
-                    return $col;
+    public function delete($table, $whereColumn, $whereValue) {
+        $query = "DELETE FROM $table WHERE $whereColumn = ?";
+
+        $stmt = $this->prepareStatement($query, [$whereValue]);
+
+        if ($stmt->execute()) {
+            return "Deleted rows: " . $stmt->affected_rows . "\n";
+        } else {
+            return "Error: " . $stmt->error;
+        }
+    }
+
+    private function prepareStatement($query, $params) {
+        $stmt = $this->conn->prepare($query);
+
+        if (!$stmt) {
+            die("Prepare failed: " . $this->conn->error);
+        }
+
+        if ($params) {
+            $types = '';
+            $paramReferences = [];
+            foreach ($params as &$param) {
+                if (is_int($param)) {
+                    $types .= 'i'; // Integer
+                } elseif (is_double($param)) {
+                    $types .= 'd'; // Double
+                } else {
+                    $types .= 's'; // String
                 }
-            } else {
-                die("Execute failed: " . mysqli_stmt_error($this->stmt));
+                $paramReferences[] = &$param;
             }
 
+            array_unshift($paramReferences, $types);
 
-        }catch(Exception $error){
-            echo $error;
+            call_user_func_array([$stmt, 'bind_param'], $paramReferences);
         }
+
+        return $stmt;
     }
-
-
 }
+
+$mysql = new MySQL();
+
+// Example usages
+// echo $mysql->insert("users", ["username" => "john", "email" => "john@example.com"]);
+// echo $mysql->select("users", ["id", "username", "email"], "username", "john");
+// echo $mysql->update("users", ["email" => "new_email@example.com"], "username", "john");
+// echo $mysql->delete("users", "username", "john");
