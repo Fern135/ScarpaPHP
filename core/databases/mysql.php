@@ -35,10 +35,10 @@ class MySQL extends Util {
     }
 
     private function __destruct(){
-        $this->conn = null;
-        $this->host = null;
-        $this->user = null;
-        $this->pass = null;
+        $this->conn   = null;
+        $this->host   = null;
+        $this->user   = null;
+        $this->pass   = null;
         $this->dbname = null;
 
         mysqli_close($this->conn);
@@ -150,7 +150,7 @@ class MySQL extends Util {
     }
 }
 
-$mysql = new MySQL();
+// $mysql = new MySQL();
 
 // Example usages
 // echo $mysql->insert("users", ["username" => "john", "email" => "john@example.com"]);

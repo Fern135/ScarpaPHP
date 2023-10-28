@@ -39,7 +39,12 @@ class Emailer extends Util{
 
     public function send() {
         try{
-            if (mail($this->to, $this->subject, $this->message, $this->headers)) {
+            if (mail(
+                $this->to,
+                $this->subject, 
+                $this->message, 
+                $this->headers)
+            ) {
                 return true; // Email sent successfully
             } else {
                 return false; // Email sending failed

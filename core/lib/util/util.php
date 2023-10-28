@@ -3,6 +3,8 @@
 namespace Oracle\lib\util;
 use Exception;
 
+include '../env_loader/env_loader.php';
+
 class Util{
 
     private $characters;
@@ -10,6 +12,13 @@ class Util{
     
 
     public function __construct(){
+        $loaded = loadEnv();
+        if ($loaded) {
+            echo "Environment variables loaded successfully from envFile.\n";
+        } else {
+            echo "No .env file found or failed to load environment variables.\n";
+        }
+
         $this->characters   = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#%^&*()_+=-1234567890[]{};"",./<>?';
         $this->pattern      = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
     }
@@ -81,18 +90,22 @@ class Util{
     }
     
     public function getOperatingSystem() { //* dev
-        $uname = php_uname('s'); // Get the OS name
-        $lowercaseUname = strtolower($uname);
-    
-        if (strpos($lowercaseUname, 'linux') !== false) {
-            return 'Linux';
-        } elseif (strpos($lowercaseUname, 'darwin') !== false) {
-            return 'macOS';
-        } elseif (strpos($lowercaseUname, 'win') !== false) {
-            return 'Windows';
-        } else {
-            return 'Unknown';
+        if($_ENV['debug'] === true){
+            $uname = php_uname('s'); // Get the OS name
+            $lowercaseUname = strtolower($uname);
+            
+            if (strpos($lowercaseUname, 'linux') !== false) {
+                return 'Linux';
+            } elseif (strpos($lowercaseUname, 'darwin') !== false) {
+                return 'macOS';
+            } elseif (strpos($lowercaseUname, 'win') !== false) {
+                return 'Windows';
+            } else {
+                return 'Unknown';
+            }
         }
+
+        return false;
     }
 
     public function getCurrentDateTime() {
@@ -125,7 +138,6 @@ class Util{
     }
 
     public function validateEmail($email) {
-    
         // Use the preg_match function to check if the email matches the pattern
         if (preg_match($this->pattern, $email)) {
             return true; // Valid email

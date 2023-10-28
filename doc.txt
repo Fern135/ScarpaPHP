@@ -1,12 +1,15 @@
 - OraclePHP/
-  - app/
+  - app/ <================ how to make an app
     - controllers/
     - models/
     - views/
+    - templates/
+
   - public/
     - css/
     - js/
     - index.php             [√]
+
   - config/
     - database.php
 

@@ -62,10 +62,10 @@ class JWT {
 
 // $token = $jwtHandler->generateToken($data);
 
-// // Output the token
+// Output the token
 // echo $token;
 
-// // Verify the token
+// Verify the token
 // $verifiedData = $jwtHandler->verifyToken($token);
 // if ($verifiedData) {
 //     print_r($verifiedData);
