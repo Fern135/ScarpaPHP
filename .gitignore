@@ -3,3 +3,8 @@
 vendor
 venv
 node_modules
+
+dnd.txt
+
+# only for macs
+.DS_Store
