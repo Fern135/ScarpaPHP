@@ -7,39 +7,44 @@ class WebScraper {
         $this->html = '';
     }
 
+    public function __destruct(){
+        $this->html = '';
+    }
+
     public function loadHtml($url) {
         $this->html = file_get_contents($url);
     }
 
-    public function findElementsByTag($tag) {
-        $pattern = "/<$tag.*?>(.*?)<\/$tag>/si";
-        preg_match_all($pattern, $this->html, $matches);
-
-        return $matches[1];
+    public function selectElement($selector) {
+        $pattern = "/<$selector.*?>(.*?)<\/$selector>/si";
+        preg_match($pattern, $this->html, $matches);
+        return $matches[1] ?? '';
     }
 
-    public function findElementsByClass($className) {
-        $pattern = "/class=['\"]$className['\"]/si";
-        preg_match_all($pattern, $this->html, $matches);
-
-        $elements = [];
-        foreach ($matches[0] as $match) {
-            $element = strip_tags($match);
-            $elements[] = $element;
-        }
-
-        return $elements;
+    public function findById($id) {
+        $pattern = "/id=['\"]" . preg_quote($id, '/') . "['\"]>(.*?)<\/.*?>/si";
+        preg_match($pattern, $this->html, $matches);
+        return $matches[1] ?? '';
     }
+    
+
+    public function findByClass($className) {
+        $pattern = "/class=['\"]" . preg_quote($className, '/') . "['\"]>(.*?)<\/.*?>/si";
+        preg_match_all($pattern, $this->html, $matches);
+        return $matches[1] ?? [];
+    }
+    
 }
 
+
 // Example usage:
-$scraper = new WebScraper();
-$scraper->loadHtml("https://example.com");
+// $scraper = new WebScraper();
+// $scraper->loadHtml("https://example.com");
 
 // Find elements by tag (e.g., "a" for links)
-$links = $scraper->findElementsByTag("a");
-print_r($links);
+// $links = $scraper->findElementsByTag("a");
+// echo ($links);
 
 // Find elements by class (e.g., "classname")
-$elements = $scraper->findElementsByClass("classname");
-print_r($elements);
+// $elements = $scraper->findElementsByClass("classname");
+// echo ($elements);

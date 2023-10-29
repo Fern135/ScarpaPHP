@@ -1,0 +1,27 @@
+/* Style for the notification container */
+#notifications {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    max-width: 300px;
+    background: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+  }
+  
+/* Animation for showing/hiding the notification */
+#notifications.show {
+    animation: slide-in 0.5s ease-in-out;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+  
