@@ -1,5 +1,6 @@
 import Growl from "../core/js/notification/notification.js";
 
+
 window.onload = Load();
 
 async function Load(){
