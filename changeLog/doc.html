@@ -11,6 +11,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="./bin/css/docs.css">
+        <link rel="stylesheet" type="text/css" href="../core/css/growl.css">
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -18,7 +19,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         
     </head>
-    <body class="bg-secondary" onload="accordion()">
+    <body class="bg-secondary" >
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -57,8 +58,7 @@
                 <br>
             </div>
 
-            <h1 class="text-center">OraclePHP</h1>
-            <div data-toggle="tooltip" data-placement="top" title="This is a tooltip">?</div>
+            <h1 class="text-center">OraclePHP <a href="#" onclick="question()">?</a> </h1>
             <div class="panel">
                 <ul class="">
                     <div class="border">
@@ -122,11 +122,13 @@
         </div>
         <!-- OraclePHP -->
 
-        <script async src="./bin/js/docs.js"></script>
+        <script async src="../core/js/notification/notification.js" type="module"></script>
+        <script async src="./bin/js/docs.js" type="module"></script>
         <script>
             $(document).ready(function() {
                 $('[data-toggle="tooltip"]').tooltip();
             });
+
         </script>
     </body>
 </html>
