@@ -24,6 +24,33 @@ function flashTitleNotification(newTitle, interval) {
 }
 
 
+function generateAndLoadHTML() {
+    var targetElement = document.body; // Replace with the actual ID of the target element
+
+    if (targetElement) {
+        targetElement.innerHTML = `
+            <div id="notifications"></div>
+        `;
+    }
+}
+
+
+function Growl(growlMessage, howLong=5000) {
+
+    generateAndLoadHTML(); // for generating notification div id
+    
+    const notifications = document.getElementById("notifications");
+    notifications.textContent = growlMessage;
+    notifications.classList.add("show");
+  
+    setTimeout(() => {
+      notifications.classList.remove("show");
+    }, howLong); // Adjust the duration (5 seconds in this case)
+}
+  
+
+
 export default {
-    flashTitleNotification
+    flashTitleNotification,
+    Growl
 }
