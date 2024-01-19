@@ -1,8 +1,8 @@
 <?php 
 
-namespace Oracle\template\templater;
+namespace Scarpa\template\templater;
 
-use Oracle\lib\util\Util;
+use Scarpa\lib\util\Util;
 use Exception;
 
 class Templater extends Util {

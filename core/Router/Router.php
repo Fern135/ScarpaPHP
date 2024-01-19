@@ -1,6 +1,6 @@
 <?php
 
-namespace Oracle\router;
+namespace Scarpa\router;
 
 class Router {
     protected $routes = [];

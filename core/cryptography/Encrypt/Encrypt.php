@@ -1,6 +1,6 @@
 <?php 
 
-namespace Oracle\Cryptography\Encrypt;
+namespace Scarpa\Cryptography\Encrypt;
 
 include "../../lib/env_loader/env_loader.php";
 
@@ -28,7 +28,7 @@ class Encrypt {
 
     public function decrypt($data) {
         $data = base64_decode($data);
-        $iv = substr($data, 0, 16);
+        $iv   = substr($data, 0, 16);
         $data = substr($data, 16);
         return openssl_decrypt($data, $this->cipher, $this->key, 0, $iv);
     }

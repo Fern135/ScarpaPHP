@@ -1,5 +1,7 @@
 <?php
 
+namespace Scarpa\lib\scrapper;
+
 class WebScraper {
     private $html;
 

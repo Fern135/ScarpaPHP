@@ -1,6 +1,6 @@
 <?php 
 
-namespace Oracle\lib\util;
+namespace Scarpa\lib\util;
 use Exception;
 
 include '../env_loader/env_loader.php';

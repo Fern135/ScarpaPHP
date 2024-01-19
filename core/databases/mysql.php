@@ -1,7 +1,7 @@
 <?php 
 
-namespace Oracle\databases\mysql;
-use \Oracle\lib\util\Util;
+namespace Scarpa\databases\mysql;
+use Scarpa\lib\util\Util;
 use Exception; // don't know why this was needed but it works. yay
 
 include "../lib/env_loader/env_loader.php";

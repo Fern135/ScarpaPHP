@@ -1,6 +1,6 @@
 <?php
 
-namespace Oracle\lib\Request;
+namespace Scarpa\lib\Request;
 
 class Request {
     protected $url;
@@ -9,10 +9,10 @@ class Request {
     protected $headers;
 
     public function __construct($url) {
-        $this->url = $url;
-        $this->method = 'GET'; // default
-        $this->data = [];
-        $this->headers = [];
+        $this->url      = $url;
+        $this->method   = 'GET'; // default
+        $this->data     = [];
+        $this->headers  = [];
     }
 
     public function setUrl($url) {

@@ -1,6 +1,6 @@
 <?php 
 
-namespace Oracle\Cryptography\JWT;
+namespace Scarpa\Cryptography\JWT;
 
 include "../../lib/env_loader/env_loader.php";
 
@@ -23,10 +23,10 @@ class JWT {
     }
 
     public function generateToken($data) {
-        $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
+        $header  = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
         $payload = json_encode($data);
 
-        $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
+        $base64UrlHeader  = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
         $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
 
         $signature = hash_hmac('sha256', $base64UrlHeader . '.' . $base64UrlPayload, $this->secretKey, true);

@@ -1,6 +1,6 @@
 <?php
 
-use \Oracle\router\Router;
+use Scarpa\router\Router;
 
 class App {
     protected $router;

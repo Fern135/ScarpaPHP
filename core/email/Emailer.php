@@ -1,8 +1,8 @@
 <?php
 
-namespace Oracle\email\Emailer;
+namespace Scarpa\email\Emailer;
 
-use Oracle\lib\util\Util;
+use Scarpa\lib\util\Util;
 use Exception;
 
 class Emailer extends Util{
@@ -22,7 +22,7 @@ class Emailer extends Util{
         $this->to       = null;
         $this->subject  = null;
         $this->headers  = null;
-        $this->headers .= null;
+        $this->headers  = null;
     }
 
     public function setSubject($subject){
@@ -39,16 +39,11 @@ class Emailer extends Util{
 
     public function send() {
         try{
-            if (mail(
-                $this->to,
-                $this->subject, 
-                $this->message, 
-                $this->headers)
-            ) {
+            if (mail( $this->to, $this->subject,  $this->message,  $this->headers )) {
                 return true; // Email sent successfully
-            } else {
-                return false; // Email sending failed
-            }
+            } 
+            
+            return false; // Email sending failed
         }catch(Exception $error){
             return $error;
         }
