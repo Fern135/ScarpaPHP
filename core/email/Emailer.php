@@ -26,15 +26,14 @@ class Emailer extends Util{
     }
 
     public function setSubject($subject){
-        if($this->subject === null){
-            $this->subject = $subject;
-        }
+        $this->subject = $subject;
 
-        return false;
+        return $this;
     }
 
     public function setMessage($message) {
         $this->message = $message;
+        return $this;
     }
 
     public function send() {

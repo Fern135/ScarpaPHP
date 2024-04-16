@@ -1,12 +1,12 @@
 <?php 
 
 namespace Scarpa\databases\mysql;
-use Scarpa\lib\util\Util;
+// use Scarpa\lib\util\Util;
 use Exception; // don't know why this was needed but it works. yay
 
 include "../lib/env_loader/env_loader.php";
 
-class MySQL extends Util {
+class MySQL {
     private string $host;
     private string $user;
     private string $pass;
@@ -35,14 +35,14 @@ class MySQL extends Util {
     }
 
     private function __destruct(){
+        mysqli_close($this->conn);
+        mysqli_stmt_close($this->stmt);
         $this->conn   = null;
         $this->host   = null;
         $this->user   = null;
         $this->pass   = null;
         $this->dbname = null;
-
-        mysqli_close($this->conn);
-        mysqli_stmt_close($this->stmt);
+        $this->stmt   = null;
     }
 
     private function connect(){
