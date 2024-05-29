@@ -6,8 +6,8 @@ include "../../lib/env_loader/env_loader.php";
 
 class Encrypt {
     private $cipher = 'aes-256-cbc';  // Cipher method
-    private $key;                    // Encryption key
-    private $iv;                     // Initialization vector (IV)
+    private $key;                     // Encryption key
+    private $iv;                      // Initialization vector (IV)
 
     public function __construct() {
         $loaded = loadEnv();
