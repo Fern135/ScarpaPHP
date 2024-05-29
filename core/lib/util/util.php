@@ -31,7 +31,6 @@ class Util{
 
     function generateRandomString($length) {
         $randomString = '';
-    
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $this->characters[rand(0, strlen($this->characters) - 1)];
         }
@@ -118,10 +117,7 @@ class Util{
         // Format the date as "DD:MM:YYYY"
         $date = date("d:m:Y", $timestamp);
     
-        return [
-            'time' => $time,
-            'date' => $date,
-        ];
+        return $this->jsonify([ 'time' => $time, 'date' => $date ]);
     }
 
     public function jsonify($data) {
