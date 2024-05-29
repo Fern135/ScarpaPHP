@@ -2,7 +2,8 @@
 
 class ScarpaInit{
     constructor(){
-
+        this.coreDir    = "core/";
+        this.publicDir  = "public/"
     }
 }
 
