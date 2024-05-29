@@ -31,6 +31,16 @@ class Templater extends Util {
 
     public function set($key, $value) {
         $this->data[$key] = $value;
+        return $this;
+    }
+
+    public function setData($data=[]){
+        try{
+
+        }catch(Exception $error){
+            echo $error;
+            return $error;
+        }
     }
 
     public function render() {

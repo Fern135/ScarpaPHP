@@ -1,4 +1,4 @@
-import Growl from "../core/js/notification/notification.js";
+// import Growl from "../core/js/notification/notification.js";
 
 
 window.onload = Load();
@@ -17,6 +17,6 @@ async function Load(){
 
 
 function question(){
-    Growl("Private methods will not be listed.");
+    alert("Private methods will not be listed.");
 }
 

@@ -11,7 +11,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="./bin/css/docs.css">
-        <link rel="stylesheet" type="text/css" href="../core/css/growl.css">
+        <!-- <link rel="stylesheet" type="text/css" href="../core/css/growl.css"> -->
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -73,15 +73,15 @@
                                 <ul>
                                     <li>get</li>
                                     <div class="border">
-                                        <div class="text-success">classOfController@method handling the data</div>
-                                        $router->get('/', 'HomeController@index'); <br>
-                                        $router->get('/about', 'AboutController@index'); <br>
+                                        <div class="text-success separator">classOfController@method handling the data</div>
+                                        <div class="separator">$router->get('/', 'HomeController@index'); </div><br>
+                                        <div class="separator">$router->get('/about', 'AboutController@index'); </div> <br>
                                     </div>
                                     
                                     <li>post</li>
                                     <div class="border">
-                                        <div class="text-success">classOfController@method handling the data</div>
-                                        $router->post('/submit', 'FormController@process'); <br>
+                                        <div class="text-success separator">classOfController@method handling the data</div>
+                                        <div class="separator">$router->post('/submit', 'FormController@process'); </div> <br>
                                     </div>
 
                                 </ul>
@@ -122,8 +122,8 @@
         </div>
         <!-- ScarpaPHP -->
 
-        <script src="../core/js/notification/notification.js" type="module"></script>
-        <script src="./bin/js/docs.js" type="module"></script>
+        <!-- <script src="../core/js/notification/notification.js" type="module"></script> -->
+        <script src="./bin/js/docs.js"></script>
         <script>
             $(document).ready(function() {
                 $('[data-toggle="tooltip"]').tooltip();
