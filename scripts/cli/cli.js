@@ -36,7 +36,7 @@ const createProjectStructure = (projectPath, projectName) => {
 
 program
   .version('1.0.0')
-  .description('scrp')
+  .description('scarpa')
 
 // --greet --name
 program
