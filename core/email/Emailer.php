@@ -5,13 +5,14 @@ namespace Scarpa\email\Emailer;
 use Scarpa\lib\util\Util;
 use Exception;
 
-class Emailer extends Util{
+class Emailer{
     private $to;
     private $subject;
     private $message;
     private $headers;
 
     public function __construct($to) {
+        $this->ut       = new Util();
         $this->to       = $to;
         $this->subject  = null;
         $this->headers  = "MIME-Version: 1.0" . "\r\n";
@@ -26,21 +27,31 @@ class Emailer extends Util{
     }
 
     public function setSubject($subject){
-        $this->subject = $subject;
+        if(!empty($subject)){
+            $this->subject = $subject;
+        }else{
+            throw new Exception("Subject cannot be null");
+        }
 
         return $this;
     }
 
     public function setMessage($message) {
-        $this->message = $message;
+        if(!empty($message)){
+            $this->message = $message;
+        }else{
+            throw new Exception("Message cannot be null");
+        }
         return $this;
     }
 
     public function send() {
         try{
-            if (mail( $this->to, $this->subject,  $this->message,  $this->headers )) {
-                return true; // Email sent successfully
-            } 
+            if(isset($this->subject) &&  isset($this->message)) {
+                if (mail( $this->to, $this->subject,  $this->message,  $this->headers )) {
+                    return true; // Email sent successfully
+                } 
+            }
             
             return false; // Email sending failed
         }catch(Exception $error){
