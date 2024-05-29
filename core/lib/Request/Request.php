@@ -4,7 +4,7 @@ namespace Scarpa\lib\Request;
 
 class Request {
     protected $url;
-    private $method;
+    private   $method;
     protected $data;
     protected $headers;
 
